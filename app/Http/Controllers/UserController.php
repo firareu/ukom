@@ -42,8 +42,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        // This method is used to display a specific user
+        // Typically used for showing user details in a profile page or similar
+        return response()->json($user);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -66,6 +69,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success', 'User deleted successfully');
     }
 }
