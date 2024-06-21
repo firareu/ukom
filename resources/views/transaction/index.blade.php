@@ -3,6 +3,31 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Transaksi') }}
         </h2>
+        <style>
+            ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {      
+            background: #FFFFFF;    
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #232323;
+            border-radius: 10px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            ::-webkit-scrollbar-track {      
+                background: #FFFFFF;    
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: #232323;
+                border-radius: 10px;
+            }
+        }
+        </style>
     </x-slot>
 
     <div class="py-12">
