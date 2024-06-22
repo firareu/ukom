@@ -17,19 +17,14 @@ class AdminMiddleware
     {
         if(auth()->user()->role != 'admin'){
             return redirect()->to('/dashboard');
-        }else{
-            // return redirect()->to('/dashboardadmin');
         }
 
         return $next($request);
+
+        // if(auth()->user()->role != 'admin'){
+        //     return redirect()->route('home')->with('error', 'Access denied. Admin only.');
+        // }
+    
+        // return $next($request);
     }
-
-    // public function handle(Request $request, Closure $next)
-    // {
-    //     if (!auth()->user() || auth()->user()->role !== 'admin') {
-    //         return redirect()->route('dashboard')->with('error', 'Unauthorized access.');
-    //     }
-
-    //     return $next($request);
-    // }
 }
