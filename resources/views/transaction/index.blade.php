@@ -73,9 +73,8 @@
                                     </td>
                                     <td class="whitespace-nowrap p-4 text-gray-700">Rp. @rupiah($transaction->total)</td>
                                     <td class="whitespace-nowrap p-4">
-                                        <a href="#"
-                                            class="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700">
-                                            View
+                                        <a href="{{ route('transaction.pdf', $transaction) }}" class="inline-block rounded bg-green-600 px-4 py-2 text-xs font-medium text-white hover:bg-green-700">
+                                            Cetak PDF
                                         </a>
                                     </td>
                                 </tr>

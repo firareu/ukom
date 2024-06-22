@@ -20,11 +20,5 @@ class AdminMiddleware
         }
 
         return $next($request);
-
-        // if(auth()->user()->role != 'admin'){
-        //     return redirect()->route('home')->with('error', 'Access denied. Admin only.');
-        // }
-    
-        // return $next($request);
     }
 }

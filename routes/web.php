@@ -16,15 +16,14 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [TransactionController::class, 'create'])->name('dashboard');
 
-        Route::prefix('cart')->group(function () {
-            Route::post('{item}/add', [TransactionController::class, 'addCart'])->name('cart.add');
-            Route::post('{item}/reduce', [TransactionController::class, 'reduceCart'])->name('cart.reduce');
-        });
-    
-        Route::get('cart', [TransactionController::class, 'cart'])->name('transaction.cart');
-        Route::resource('transaction', TransactionController::class);
-        Route::get('/transaction/{transaction}/pdf', [TransactionController::class, 'generatePDF'])->name('transaction.pdf');
-    
+    Route::prefix('cart')->group(function () {
+        Route::post('{item}/add', [TransactionController::class, 'addCart'])->name('cart.add');
+        Route::post('{item}/reduce', [TransactionController::class, 'reduceCart'])->name('cart.reduce');
+    });
+
+    Route::get('cart', [TransactionController::class, 'cart'])->name('transaction.cart');
+    Route::resource('transaction', TransactionController::class);
+    Route::get('/transaction/{transaction}/pdf', [TransactionController::class, 'generatePDF'])->name('transaction.pdf');
 
     // Route::middleware(UserMiddleware::class)->group(function () {
     //     Route::get('/dashboard', [TransactionController::class, 'create'])->name('dashboard');
@@ -51,14 +50,14 @@ Route::middleware('auth')->group(function () {
         Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
         Route::get('/items/{item}/editJson', [ItemController::class, 'editJson'])->name('items.editJson');
     
-        Route::prefix('cart')->group(function () {
-            Route::post('{item}/add', [TransactionController::class, 'addCart'])->name('cart.add');
-            Route::post('{item}/reduce', [TransactionController::class, 'reduceCart'])->name('cart.reduce');
-        });
+        // Route::prefix('cart')->group(function () {
+        //     Route::post('{item}/add', [TransactionController::class, 'addCart'])->name('cart.add');
+        //     Route::post('{item}/reduce', [TransactionController::class, 'reduceCart'])->name('cart.reduce');
+        // });
     
-        Route::get('cart', [TransactionController::class, 'cart'])->name('transaction.cart');
-        Route::resource('transaction', TransactionController::class);
-        Route::get('/transaction/{transaction}/pdf', [TransactionController::class, 'generatePDF'])->name('transaction.pdf');
+        // Route::get('cart', [TransactionController::class, 'cart'])->name('transaction.cart');
+        // Route::resource('transaction', TransactionController::class);
+        // Route::get('/transaction/{transaction}/pdf', [TransactionController::class, 'generatePDF'])->name('transaction.pdf');
     
         Route::resource('user', UserController::class);
     });
