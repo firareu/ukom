@@ -19,8 +19,14 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
+    // public function items()
+    // {
+    //     return $this->belongsToMany(Item::class, 'transaction_item');
+    // }
     public function items()
     {
-        return $this->belongsToMany(Item::class, 'transaction_item');
+        return $this->belongsToMany(Item::class, 'transaction_item')
+                    ->withPivot('qty', 'price');
     }
+    
 }

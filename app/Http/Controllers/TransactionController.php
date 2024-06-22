@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransactionController extends Controller
 {
@@ -121,6 +122,13 @@ class TransactionController extends Controller
         }
     }
 
+    public function generatePDF(Transaction $transaction)
+    {
+        $transaction->load('items');
+        $pdf = PDF::loadView('pdf.transaction', compact('transaction'));
+        return $pdf->download('transaction-' . $transaction->id . '.pdf');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -148,9 +156,17 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Transaction $Transaction)
+    public function destroy(Transaction $transaction)
     {
-        //
+        DB::transaction(function () use ($transaction) {
+            // Hapus terlebih dahulu data di tabel pivot
+            $transaction->items()->detach();
+            
+            // Kemudian hapus transaksi
+            $transaction->delete();
+        });
+
+        return redirect()->back()->with('success', 'Transaction deleted successfully.');
     }
 
     /**

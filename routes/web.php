@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('cart', [TransactionController::class, 'cart'])->name('transaction.cart');
     Route::resource('transaction', TransactionController::class);
     Route::get('/transaction/{transaction}/pdf', [TransactionController::class, 'generatePDF'])->name('transaction.pdf');
+    Route::delete('/transactions/{transaction}', [TransactionController::class, 'destroy'])->name('transaction.destroy');
 
     // Route::middleware(UserMiddleware::class)->group(function () {
     //     Route::get('/dashboard', [TransactionController::class, 'create'])->name('dashboard');
