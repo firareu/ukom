@@ -1,7 +1,6 @@
 
 # Project Buat UKOM
 
-tolong jangan disebarin ya xixixixi
 
 
 
