@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedInteger('price');
             $table->foreignId('category_id')->constrained();
-            $table->string('image')->default('default.jpg');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
