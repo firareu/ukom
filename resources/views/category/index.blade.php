@@ -69,7 +69,9 @@
                                             <td class="whitespace-nowrap p-4 text-gray-900">{{ $loop->iteration }}</td>
                                             <td class="whitespace-nowrap p-4 text-gray-700">{{ $category->name }}</td>
                                             <td class="whitespace-nowrap p-4">
-                                                <a href="{{ route('category.edit', $category) }}" class="bg-yellow-500 text-white py-1 px-2 rounded">Edit</a>
+                                                <button onclick="showEditForm({{ $category->id }}, '{{ $category->name }}')" class="bg-yellow-500 text-white py-1 px-2 rounded">
+                                                    Edit
+                                                </button>
                                                 <button 
                                                     onclick="confirmDelete({{ $category->id }})" 
                                                     class="bg-red-600 text-white py-1 px-2 rounded inline-block font-semibold text-xs text-white tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
@@ -140,13 +142,58 @@
     </div>
 
     <script>
-    function openModal(deleteUrl) {
-        document.getElementById('deleteModal').classList.remove('hidden');
-        document.getElementById('deleteForm').action = deleteUrl;
-    }
+        
+        function showEditForm(id, name) {
+            // Menyembunyikan form create
+            document.getElementById('create-form').style.display = 'none';
+            // Menampilkan form edit
+            document.getElementById('update-form').style.display = 'block';
 
-    function closeModal() {
-        document.getElementById('deleteModal').classList.add('hidden');
-    }
+            // Mengisi form edit dengan data kategori
+            const updateForm = document.getElementById('update-form');
+            updateForm.querySelector('form').action = `/category/${id}`; // Action form edit
+            updateForm.querySelector('#name').value = name; // Nama kategori
+
+            // Atur judul atau header form edit sesuai kebutuhan
+            updateForm.querySelector('.text-gray-900').innerText = `Update Kategori: ${name}`;
+        }
+
+        function confirmDelete(id) {
+            // Tampilkan modal delete
+            document.getElementById('deleteModal').classList.remove('hidden');
+
+            // Tangkap form delete dan atur action-nya sesuai dengan id kategori yang akan dihapus
+            const deleteForm = document.getElementById('deleteForm');
+            deleteForm.action = '/category/' + id;
+        }
+
+        function cancelUpdate() {
+            document.getElementById('create-form').style.display = 'block';
+            document.getElementById('update-form').style.display = 'none';
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const editForm = document.getElementById('edit-form');
+            editForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.success);
+                        location.reload();
+                    } else {
+                        alert('Terjadi kesalahan saat memperbarui kategori.');
+                    }
+                });
+            });
+        });
     </script>
 </x-app-layout>

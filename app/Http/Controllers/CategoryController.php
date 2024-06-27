@@ -76,24 +76,19 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, Category $category)
     {
-        // Validate request data
         $request->validate([
             'name' => 'required|string|unique:categories,name,' . $category->id,
         ]);
-
-        // Update category
+     
         $category->name = $request->name;
         $category->save();
-
-        // Redirect with success message
+     
         return redirect()->route('category.index')->with('success', 'Kategori berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
         // Delete category
