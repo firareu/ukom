@@ -7,7 +7,7 @@
 
 ## Deployment
 
-kalau mau nyoba ikutin tutor dibawah ini ya, kiw kiw
+kalau mau nyoba ikutin tutor dibawah ini ya
 
 ```bash
   composer install
