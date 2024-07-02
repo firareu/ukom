@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(AdminMiddleware::class)->group(function () {
         Route::resource('user', UserController::class);
         Route::resource('category', CategoryController::class);
+        // Route::get('/category/{id}/check-items', [CategoryController::class, 'checkItems']);
     });
 });
 

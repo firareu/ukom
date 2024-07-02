@@ -89,12 +89,25 @@ class CategoryController extends Controller
         return redirect()->route('category.index')->with('success', 'Kategori berhasil diperbarui!');
     }
 
+    // public function destroy(Category $category)
+    // {
+    //     // Delete category
+    //     $category->delete();
+
+    //     // Redirect with success message
+    //     return redirect()->route('category.index')->with('success', 'Kategori berhasil dihapus!');
+    // }
+
     public function destroy(Category $category)
     {
-        // Delete category
+        // Check if the category has items
+        if ($category->items()->exists()) {
+            return redirect()->route('category.index')->with('error', 'Kategori tidak dapat dihapus karena masih memiliki item terkait.');
+        }
+
+        // Delete the category if no items are associated
         $category->delete();
 
-        // Redirect with success message
         return redirect()->route('category.index')->with('success', 'Kategori berhasil dihapus!');
     }
 }
